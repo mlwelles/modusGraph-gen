@@ -7,7 +7,6 @@ import (
 
 	"github.com/dgraph-io/dgo/v250"
 	"github.com/matthewmcneely/modusgraph"
-	"github.com/matthewmcneely/modusgraph/load"
 	"github.com/matthewmcneely/modusgraph/typed"
 )
 
@@ -87,9 +86,4 @@ func (c *Client) DgraphClient() (*dgo.Dgraph, func(), error) {
 // WithRetry executes fn with retry on aborted transactions.
 func (c *Client) WithRetry(ctx context.Context, policy modusgraph.RetryPolicy, fn func() error) error {
 	return c.ModusGraphClient.WithRetry(ctx, policy, fn)
-}
-
-// LoadData loads RDF or JSON files from dataDir.
-func (c *Client) LoadData(ctx context.Context, dataDir string, opts ...load.Option) error {
-	return c.ModusGraphClient.LoadData(ctx, dataDir, opts...)
 }
