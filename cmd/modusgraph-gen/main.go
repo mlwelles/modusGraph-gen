@@ -1,4 +1,4 @@
-// modusGraphGen is a code generation tool that reads Go structs with dgraph
+// modusGraph-gen is a code generation tool that reads Go structs with dgraph
 // struct tags and produces a typed client library, functional options, query
 // builders, and a Kong CLI.
 //
