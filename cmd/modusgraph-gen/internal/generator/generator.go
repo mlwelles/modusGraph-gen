@@ -832,8 +832,10 @@ func newGenImports() *genImports {
 // The accessors scalar-field scan is a superset of the options scan, so options
 // contributes nothing additional.
 func (g *genImports) addEntitySideImports(e model.Entity, imports map[string]string, schemaPath string) {
-	// entity fragment: always typed + schema.
+	// entity fragment: typed (Option/Apply) + the entity wrapper base
+	// (Wrapper/WrapValue, imported aliased as mgentity) + schema.
 	g.mg["github.com/matthewmcneely/modusgraph/typed"] = true
+	g.other["github.com/mlwelles/modusgraph-gen/entity"] = ImportSpec{Path: "github.com/mlwelles/modusgraph-gen/entity", Alias: "mgentity"}
 	g.other[schemaPath] = ImportSpec{Path: schemaPath}
 
 	// accessors fragment.

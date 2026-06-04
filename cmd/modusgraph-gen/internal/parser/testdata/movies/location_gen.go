@@ -12,19 +12,20 @@ import (
 	"github.com/matthewmcneely/modusgraph/typed/filter"
 
 	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
+	mgentity "github.com/mlwelles/modusgraph-gen/entity"
 )
 
 // Location wraps a schema.Location and exposes its data through methods.
-// It embeds typed.Wrapper, which supplies Unwrap, JSON marshaling, and
+// It embeds mgentity.Wrapper, which supplies Unwrap, JSON marshaling, and
 // validation; the backing schema struct is reachable only via Unwrap().
 type Location struct {
-	typed.Wrapper[schema.Location]
+	mgentity.Wrapper[schema.Location]
 }
 
 // NewLocation constructs a Location with a fresh, empty schema struct, then
 // applies the given options.
 func NewLocation(opts ...typed.Option[Location]) *Location {
-	e := &Location{Wrapper: typed.WrapValue(&schema.Location{})}
+	e := &Location{Wrapper: mgentity.WrapValue(&schema.Location{})}
 	typed.Apply(e, opts...)
 	return e
 }
@@ -33,7 +34,7 @@ func NewLocation(opts ...typed.Option[Location]) *Location {
 // applies the given options. The wrapper holds s directly — no defensive
 // copy, so setters mutate the caller's struct.
 func WrapLocation(s *schema.Location, opts ...typed.Option[Location]) *Location {
-	e := &Location{Wrapper: typed.WrapValue(s)}
+	e := &Location{Wrapper: mgentity.WrapValue(s)}
 	typed.Apply(e, opts...)
 	return e
 }

@@ -12,19 +12,20 @@ import (
 	"github.com/matthewmcneely/modusgraph/typed/filter"
 
 	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
+	mgentity "github.com/mlwelles/modusgraph-gen/entity"
 )
 
 // Director wraps a schema.Director and exposes its data through methods.
-// It embeds typed.Wrapper, which supplies Unwrap, JSON marshaling, and
+// It embeds mgentity.Wrapper, which supplies Unwrap, JSON marshaling, and
 // validation; the backing schema struct is reachable only via Unwrap().
 type Director struct {
-	typed.Wrapper[schema.Director]
+	mgentity.Wrapper[schema.Director]
 }
 
 // NewDirector constructs a Director with a fresh, empty schema struct, then
 // applies the given options.
 func NewDirector(opts ...typed.Option[Director]) *Director {
-	e := &Director{Wrapper: typed.WrapValue(&schema.Director{})}
+	e := &Director{Wrapper: mgentity.WrapValue(&schema.Director{})}
 	typed.Apply(e, opts...)
 	return e
 }
@@ -33,7 +34,7 @@ func NewDirector(opts ...typed.Option[Director]) *Director {
 // applies the given options. The wrapper holds s directly — no defensive
 // copy, so setters mutate the caller's struct.
 func WrapDirector(s *schema.Director, opts ...typed.Option[Director]) *Director {
-	e := &Director{Wrapper: typed.WrapValue(s)}
+	e := &Director{Wrapper: mgentity.WrapValue(s)}
 	typed.Apply(e, opts...)
 	return e
 }
@@ -61,7 +62,7 @@ func (e *Director) SetName(v string) { e.Unwrap().Name = v }
 func (e *Director) Films() []*Film {
 	out := make([]*Film, len(e.Unwrap().Films))
 	for i, x := range e.Unwrap().Films {
-		out[i] = &Film{Wrapper: typed.WrapValue(x)}
+		out[i] = &Film{Wrapper: mgentity.WrapValue(x)}
 	}
 	return out
 }
@@ -71,7 +72,7 @@ func (e *Director) Films() []*Film {
 func (e *Director) FilmsSeq() iter.Seq[*Film] {
 	return func(yield func(*Film) bool) {
 		for _, x := range e.Unwrap().Films {
-			if !yield(&Film{Wrapper: typed.WrapValue(x)}) {
+			if !yield(&Film{Wrapper: mgentity.WrapValue(x)}) {
 				return
 			}
 		}

@@ -14,19 +14,20 @@ import (
 
 	dg "github.com/dolan-in/dgman/v2"
 	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
+	mgentity "github.com/mlwelles/modusgraph-gen/entity"
 )
 
 // Studio wraps a schema.Studio and exposes its data through methods.
-// It embeds typed.Wrapper, which supplies Unwrap, JSON marshaling, and
+// It embeds mgentity.Wrapper, which supplies Unwrap, JSON marshaling, and
 // validation; the backing schema struct is reachable only via Unwrap().
 type Studio struct {
-	typed.Wrapper[schema.Studio]
+	mgentity.Wrapper[schema.Studio]
 }
 
 // NewStudio constructs a Studio with a fresh, empty schema struct, then
 // applies the given options.
 func NewStudio(opts ...typed.Option[Studio]) *Studio {
-	e := &Studio{Wrapper: typed.WrapValue(&schema.Studio{})}
+	e := &Studio{Wrapper: mgentity.WrapValue(&schema.Studio{})}
 	typed.Apply(e, opts...)
 	return e
 }
@@ -35,7 +36,7 @@ func NewStudio(opts ...typed.Option[Studio]) *Studio {
 // applies the given options. The wrapper holds s directly — no defensive
 // copy, so setters mutate the caller's struct.
 func WrapStudio(s *schema.Studio, opts ...typed.Option[Studio]) *Studio {
-	e := &Studio{Wrapper: typed.WrapValue(s)}
+	e := &Studio{Wrapper: mgentity.WrapValue(s)}
 	typed.Apply(e, opts...)
 	return e
 }
@@ -94,7 +95,7 @@ func (e *Studio) Founder() *Director {
 	if e.Unwrap().Founder == nil {
 		return nil
 	}
-	return &Director{Wrapper: typed.WrapValue(e.Unwrap().Founder)}
+	return &Director{Wrapper: mgentity.WrapValue(e.Unwrap().Founder)}
 }
 
 // SetFounder sets or clears the Director edge.
@@ -109,7 +110,7 @@ func (e *Studio) SetFounder(v *Director) {
 // Headquarters returns a wrapper over the value-typed schema field. The wrapper
 // shares state with e — mutations are visible to e immediately.
 func (e *Studio) Headquarters() *Country {
-	return &Country{Wrapper: typed.WrapValue(&e.Unwrap().Headquarters)}
+	return &Country{Wrapper: mgentity.WrapValue(&e.Unwrap().Headquarters)}
 }
 
 // SetHeadquarters copies the value from v into the schema field. Note: this is
@@ -126,7 +127,7 @@ func (e *Studio) CurrentHead() *Director {
 	if len(e.Unwrap().CurrentHead) == 0 || e.Unwrap().CurrentHead[0] == nil {
 		return nil
 	}
-	return &Director{Wrapper: typed.WrapValue(e.Unwrap().CurrentHead[0])}
+	return &Director{Wrapper: mgentity.WrapValue(e.Unwrap().CurrentHead[0])}
 }
 
 // SetCurrentHead replaces the singular-via-list edge with v, or clears it if nil.
@@ -144,7 +145,7 @@ func (e *Studio) Ceo() *Director {
 	if len(e.Unwrap().Ceo) == 0 || e.Unwrap().Ceo[0] == nil {
 		return nil
 	}
-	return &Director{Wrapper: typed.WrapValue(e.Unwrap().Ceo[0])}
+	return &Director{Wrapper: mgentity.WrapValue(e.Unwrap().Ceo[0])}
 }
 
 // SetCeo replaces the singular-via-list edge with v, or clears it if nil.
@@ -162,7 +163,7 @@ func (e *Studio) HomeBase() *Country {
 	if len(e.Unwrap().HomeBase) == 0 || e.Unwrap().HomeBase[0] == nil {
 		return nil
 	}
-	return &Country{Wrapper: typed.WrapValue(e.Unwrap().HomeBase[0])}
+	return &Country{Wrapper: mgentity.WrapValue(e.Unwrap().HomeBase[0])}
 }
 
 // SetHomeBase replaces the singular-via-list edge with v, or clears it if nil.
@@ -180,7 +181,7 @@ func (e *Studio) ParentCompany() *Country {
 	if len(e.Unwrap().ParentCompany) == 0 || e.Unwrap().ParentCompany[0] == nil {
 		return nil
 	}
-	return &Country{Wrapper: typed.WrapValue(e.Unwrap().ParentCompany[0])}
+	return &Country{Wrapper: mgentity.WrapValue(e.Unwrap().ParentCompany[0])}
 }
 
 // SetParentCompany replaces the singular-via-list edge with v, or clears it if nil.
@@ -197,7 +198,7 @@ func (e *Studio) SetParentCompany(v *Country) {
 func (e *Studio) Films() []*Film {
 	out := make([]*Film, len(e.Unwrap().Films))
 	for i, x := range e.Unwrap().Films {
-		out[i] = &Film{Wrapper: typed.WrapValue(x)}
+		out[i] = &Film{Wrapper: mgentity.WrapValue(x)}
 	}
 	return out
 }
@@ -207,7 +208,7 @@ func (e *Studio) Films() []*Film {
 func (e *Studio) FilmsSeq() iter.Seq[*Film] {
 	return func(yield func(*Film) bool) {
 		for _, x := range e.Unwrap().Films {
-			if !yield(&Film{Wrapper: typed.WrapValue(x)}) {
+			if !yield(&Film{Wrapper: mgentity.WrapValue(x)}) {
 				return
 			}
 		}
@@ -241,7 +242,7 @@ func (e *Studio) RemoveFilms(uids ...string) {
 func (e *Studio) Advisors() []*Director {
 	out := make([]*Director, len(e.Unwrap().Advisors))
 	for i, x := range e.Unwrap().Advisors {
-		out[i] = &Director{Wrapper: typed.WrapValue(x)}
+		out[i] = &Director{Wrapper: mgentity.WrapValue(x)}
 	}
 	return out
 }
@@ -251,7 +252,7 @@ func (e *Studio) Advisors() []*Director {
 func (e *Studio) AdvisorsSeq() iter.Seq[*Director] {
 	return func(yield func(*Director) bool) {
 		for _, x := range e.Unwrap().Advisors {
-			if !yield(&Director{Wrapper: typed.WrapValue(x)}) {
+			if !yield(&Director{Wrapper: mgentity.WrapValue(x)}) {
 				return
 			}
 		}

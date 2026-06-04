@@ -10,19 +10,20 @@ import (
 	"github.com/matthewmcneely/modusgraph/typed"
 
 	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
+	mgentity "github.com/mlwelles/modusgraph-gen/entity"
 )
 
 // Performance wraps a schema.Performance and exposes its data through methods.
-// It embeds typed.Wrapper, which supplies Unwrap, JSON marshaling, and
+// It embeds mgentity.Wrapper, which supplies Unwrap, JSON marshaling, and
 // validation; the backing schema struct is reachable only via Unwrap().
 type Performance struct {
-	typed.Wrapper[schema.Performance]
+	mgentity.Wrapper[schema.Performance]
 }
 
 // NewPerformance constructs a Performance with a fresh, empty schema struct, then
 // applies the given options.
 func NewPerformance(opts ...typed.Option[Performance]) *Performance {
-	e := &Performance{Wrapper: typed.WrapValue(&schema.Performance{})}
+	e := &Performance{Wrapper: mgentity.WrapValue(&schema.Performance{})}
 	typed.Apply(e, opts...)
 	return e
 }
@@ -31,7 +32,7 @@ func NewPerformance(opts ...typed.Option[Performance]) *Performance {
 // applies the given options. The wrapper holds s directly — no defensive
 // copy, so setters mutate the caller's struct.
 func WrapPerformance(s *schema.Performance, opts ...typed.Option[Performance]) *Performance {
-	e := &Performance{Wrapper: typed.WrapValue(s)}
+	e := &Performance{Wrapper: mgentity.WrapValue(s)}
 	typed.Apply(e, opts...)
 	return e
 }

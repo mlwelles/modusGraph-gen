@@ -13,19 +13,20 @@ import (
 	"github.com/matthewmcneely/modusgraph/typed/filter"
 
 	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
+	mgentity "github.com/mlwelles/modusgraph-gen/entity"
 )
 
 // Film wraps a schema.Film and exposes its data through methods.
-// It embeds typed.Wrapper, which supplies Unwrap, JSON marshaling, and
+// It embeds mgentity.Wrapper, which supplies Unwrap, JSON marshaling, and
 // validation; the backing schema struct is reachable only via Unwrap().
 type Film struct {
-	typed.Wrapper[schema.Film]
+	mgentity.Wrapper[schema.Film]
 }
 
 // NewFilm constructs a Film with a fresh, empty schema struct, then
 // applies the given options.
 func NewFilm(opts ...typed.Option[Film]) *Film {
-	e := &Film{Wrapper: typed.WrapValue(&schema.Film{})}
+	e := &Film{Wrapper: mgentity.WrapValue(&schema.Film{})}
 	typed.Apply(e, opts...)
 	return e
 }
@@ -34,7 +35,7 @@ func NewFilm(opts ...typed.Option[Film]) *Film {
 // applies the given options. The wrapper holds s directly — no defensive
 // copy, so setters mutate the caller's struct.
 func WrapFilm(s *schema.Film, opts ...typed.Option[Film]) *Film {
-	e := &Film{Wrapper: typed.WrapValue(s)}
+	e := &Film{Wrapper: mgentity.WrapValue(s)}
 	typed.Apply(e, opts...)
 	return e
 }
@@ -74,7 +75,7 @@ func (e *Film) SetTagline(v string) { e.Unwrap().Tagline = v }
 func (e *Film) Genres() []*Genre {
 	out := make([]*Genre, len(e.Unwrap().Genres))
 	for i, x := range e.Unwrap().Genres {
-		out[i] = &Genre{Wrapper: typed.WrapValue(x)}
+		out[i] = &Genre{Wrapper: mgentity.WrapValue(x)}
 	}
 	return out
 }
@@ -84,7 +85,7 @@ func (e *Film) Genres() []*Genre {
 func (e *Film) GenresSeq() iter.Seq[*Genre] {
 	return func(yield func(*Genre) bool) {
 		for _, x := range e.Unwrap().Genres {
-			if !yield(&Genre{Wrapper: typed.WrapValue(x)}) {
+			if !yield(&Genre{Wrapper: mgentity.WrapValue(x)}) {
 				return
 			}
 		}
@@ -118,7 +119,7 @@ func (e *Film) RemoveGenres(uids ...string) {
 func (e *Film) Countries() []*Country {
 	out := make([]*Country, len(e.Unwrap().Countries))
 	for i, x := range e.Unwrap().Countries {
-		out[i] = &Country{Wrapper: typed.WrapValue(x)}
+		out[i] = &Country{Wrapper: mgentity.WrapValue(x)}
 	}
 	return out
 }
@@ -128,7 +129,7 @@ func (e *Film) Countries() []*Country {
 func (e *Film) CountriesSeq() iter.Seq[*Country] {
 	return func(yield func(*Country) bool) {
 		for _, x := range e.Unwrap().Countries {
-			if !yield(&Country{Wrapper: typed.WrapValue(x)}) {
+			if !yield(&Country{Wrapper: mgentity.WrapValue(x)}) {
 				return
 			}
 		}
@@ -162,7 +163,7 @@ func (e *Film) RemoveCountries(uids ...string) {
 func (e *Film) Ratings() []*Rating {
 	out := make([]*Rating, len(e.Unwrap().Ratings))
 	for i, x := range e.Unwrap().Ratings {
-		out[i] = &Rating{Wrapper: typed.WrapValue(x)}
+		out[i] = &Rating{Wrapper: mgentity.WrapValue(x)}
 	}
 	return out
 }
@@ -172,7 +173,7 @@ func (e *Film) Ratings() []*Rating {
 func (e *Film) RatingsSeq() iter.Seq[*Rating] {
 	return func(yield func(*Rating) bool) {
 		for _, x := range e.Unwrap().Ratings {
-			if !yield(&Rating{Wrapper: typed.WrapValue(x)}) {
+			if !yield(&Rating{Wrapper: mgentity.WrapValue(x)}) {
 				return
 			}
 		}
@@ -206,7 +207,7 @@ func (e *Film) RemoveRatings(uids ...string) {
 func (e *Film) ContentRatings() []*ContentRating {
 	out := make([]*ContentRating, len(e.Unwrap().ContentRatings))
 	for i, x := range e.Unwrap().ContentRatings {
-		out[i] = &ContentRating{Wrapper: typed.WrapValue(x)}
+		out[i] = &ContentRating{Wrapper: mgentity.WrapValue(x)}
 	}
 	return out
 }
@@ -216,7 +217,7 @@ func (e *Film) ContentRatings() []*ContentRating {
 func (e *Film) ContentRatingsSeq() iter.Seq[*ContentRating] {
 	return func(yield func(*ContentRating) bool) {
 		for _, x := range e.Unwrap().ContentRatings {
-			if !yield(&ContentRating{Wrapper: typed.WrapValue(x)}) {
+			if !yield(&ContentRating{Wrapper: mgentity.WrapValue(x)}) {
 				return
 			}
 		}
@@ -250,7 +251,7 @@ func (e *Film) RemoveContentRatings(uids ...string) {
 func (e *Film) Starring() []*Performance {
 	out := make([]*Performance, len(e.Unwrap().Starring))
 	for i, x := range e.Unwrap().Starring {
-		out[i] = &Performance{Wrapper: typed.WrapValue(x)}
+		out[i] = &Performance{Wrapper: mgentity.WrapValue(x)}
 	}
 	return out
 }
@@ -260,7 +261,7 @@ func (e *Film) Starring() []*Performance {
 func (e *Film) StarringSeq() iter.Seq[*Performance] {
 	return func(yield func(*Performance) bool) {
 		for _, x := range e.Unwrap().Starring {
-			if !yield(&Performance{Wrapper: typed.WrapValue(x)}) {
+			if !yield(&Performance{Wrapper: mgentity.WrapValue(x)}) {
 				return
 			}
 		}
@@ -294,7 +295,7 @@ func (e *Film) RemoveStarring(uids ...string) {
 func (e *Film) Directors() []*Director {
 	out := make([]*Director, len(e.Unwrap().Directors))
 	for i, x := range e.Unwrap().Directors {
-		out[i] = &Director{Wrapper: typed.WrapValue(x)}
+		out[i] = &Director{Wrapper: mgentity.WrapValue(x)}
 	}
 	return out
 }
@@ -304,7 +305,7 @@ func (e *Film) Directors() []*Director {
 func (e *Film) DirectorsSeq() iter.Seq[*Director] {
 	return func(yield func(*Director) bool) {
 		for _, x := range e.Unwrap().Directors {
-			if !yield(&Director{Wrapper: typed.WrapValue(x)}) {
+			if !yield(&Director{Wrapper: mgentity.WrapValue(x)}) {
 				return
 			}
 		}
