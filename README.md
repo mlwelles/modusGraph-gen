@@ -1,7 +1,7 @@
-# modusgraph-gen
+# modusGraph-gen
 
 Code generation and the wrapper-entity runtime for
-[modusgraph](https://github.com/matthewmcneely/modusgraph). Define Go structs, run
+[modusGraph](https://github.com/matthewmcneely/modusgraph). Define Go structs, run
 `go generate`, and get a fully typed client, query builders, auto-paging iterators, and
 a CLI — all derived from your struct definitions.
 
@@ -18,7 +18,7 @@ must declare the same replace directive**:
 ```
 // go.mod
 require (
-    github.com/mlwelles/modusgraph-gen v0.1.0
+    github.com/mlwelles/modusGraph-gen v0.1.0
     github.com/matthewmcneely/modusgraph v0.0.0-00010101000000-000000000000
 )
 
@@ -33,7 +33,7 @@ which lacks the typed client and bulk loader the generated code depends on.
 Add a `go:generate` directive next to your schema structs:
 
 ```go
-//go:generate go run github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen -entities
+//go:generate go run github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen -entities
 ```
 
 then run `go generate ./...`.
@@ -44,7 +44,7 @@ base from `modusgraph-gen/wrap`:
 ```go
 import (
     "github.com/matthewmcneely/modusgraph/typed"
-    "github.com/mlwelles/modusgraph-gen/wrap"
+    "github.com/mlwelles/modusGraph-gen/wrap"
 )
 ```
 

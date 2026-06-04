@@ -13,8 +13,8 @@ import (
 	"github.com/matthewmcneely/modusgraph/typed/filter"
 
 	dg "github.com/dolan-in/dgman/v2"
-	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
-	"github.com/mlwelles/modusgraph-gen/wrap"
+	"github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
+	"github.com/mlwelles/modusGraph-gen/wrap"
 )
 
 // Studio wraps a schema.Studio and exposes its data through methods.

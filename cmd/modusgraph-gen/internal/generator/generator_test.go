@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/model"
-	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser"
+	"github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/model"
+	"github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/parser"
 )
 
 var update = flag.Bool("update", false, "update golden files")
@@ -916,7 +916,7 @@ func TestGenerate_EntityWrapperStruct(t *testing.T) {
 		`package entity`,
 		`"example.com/test"`,
 		`"github.com/matthewmcneely/modusgraph/typed"`,
-		`"github.com/mlwelles/modusgraph-gen/wrap"`,
+		`"github.com/mlwelles/modusGraph-gen/wrap"`,
 		`type Studio struct {`,
 		`wrap.Wrapper[schema.Studio]`,
 		`func NewStudio(opts ...typed.Option[Studio]) *Studio {`,

@@ -10,8 +10,8 @@ import (
 	"testing"
 
 	modusgraph "github.com/matthewmcneely/modusgraph"
-	movies "github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies"
-	moviesSchema "github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
+	movies "github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies"
+	moviesSchema "github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
 )
 
 // TestUnwrapSchema_RealWrapperRoutesToSchema verifies the UnwrapSchema

@@ -11,7 +11,7 @@ import (
 	"testing"
 
 	"github.com/matthewmcneely/modusgraph"
-	"github.com/mlwelles/modusgraph-gen/wrap"
+	"github.com/mlwelles/modusGraph-gen/wrap"
 )
 
 // widget is a minimal schema struct used to exercise the entity wrapper.

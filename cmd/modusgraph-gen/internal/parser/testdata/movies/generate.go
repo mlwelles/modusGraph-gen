@@ -24,4 +24,4 @@
 // by TestGenerate_CLIImportsSchemaByFullPath in the generator package.
 package movies
 
-//go:generate go run github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen -entities -no-cli
+//go:generate go run github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen -entities -no-cli

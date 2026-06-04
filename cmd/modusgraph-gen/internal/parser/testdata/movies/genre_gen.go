@@ -11,8 +11,8 @@ import (
 	"github.com/matthewmcneely/modusgraph/typed"
 	"github.com/matthewmcneely/modusgraph/typed/filter"
 
-	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
-	"github.com/mlwelles/modusgraph-gen/wrap"
+	"github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
+	"github.com/mlwelles/modusGraph-gen/wrap"
 )
 
 // Genre wraps a schema.Genre and exposes its data through methods.

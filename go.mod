@@ -1,4 +1,4 @@
-module github.com/mlwelles/modusgraph-gen
+module github.com/mlwelles/modusGraph-gen
 
 go 1.25.7
 

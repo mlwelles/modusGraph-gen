@@ -23,8 +23,8 @@ import (
 	"github.com/go-logr/logr/funcr"
 	modusgraph "github.com/matthewmcneely/modusgraph"
 	"github.com/matthewmcneely/modusgraph/typed/filter"
-	movies "github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies"
-	moviesSchema "github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
+	movies "github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies"
+	moviesSchema "github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
 )
 
 // newConn builds a local file-backed modusgraph client for a test. Each call

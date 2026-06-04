@@ -11,8 +11,8 @@ import (
 	"github.com/matthewmcneely/modusgraph/typed"
 	"github.com/matthewmcneely/modusgraph/typed/filter"
 
-	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
-	"github.com/mlwelles/modusgraph-gen/wrap"
+	"github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/parser/testdata/movies/schema"
+	"github.com/mlwelles/modusGraph-gen/wrap"
 )
 
 // Location wraps a schema.Location and exposes its data through methods.

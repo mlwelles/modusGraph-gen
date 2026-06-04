@@ -15,7 +15,7 @@ import (
 	"text/template"
 	"unicode"
 
-	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/model"
+	"github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/model"
 )
 
 //go:embed templates/*.tmpl
@@ -835,7 +835,7 @@ func (g *genImports) addEntitySideImports(e model.Entity, imports map[string]str
 	// entity fragment: typed (Option/Apply) + the wrapper base
 	// (Wrapper/WrapValue from the wrap package) + schema.
 	g.mg["github.com/matthewmcneely/modusgraph/typed"] = true
-	g.other["github.com/mlwelles/modusgraph-gen/wrap"] = ImportSpec{Path: "github.com/mlwelles/modusgraph-gen/wrap"}
+	g.other["github.com/mlwelles/modusGraph-gen/wrap"] = ImportSpec{Path: "github.com/mlwelles/modusGraph-gen/wrap"}
 	g.other[schemaPath] = ImportSpec{Path: schemaPath}
 
 	// accessors fragment.

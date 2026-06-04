@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/model"
-	"github.com/mlwelles/modusgraph-gen/cmd/modusgraph-gen/internal/parser"
+	"github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/model"
+	"github.com/mlwelles/modusGraph-gen/cmd/modusgraph-gen/internal/parser"
 )
 
 // scalarField builds a plain scalar model.Field.

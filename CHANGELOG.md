@@ -29,4 +29,4 @@ All notable changes to this project are documented here. The format follows
   the modusGraph fork (https://github.com/mlwelles/modusGraph).
 - Generated code splits its imports: the generic typed primitives resolve to
   `matthewmcneely/modusgraph/typed`; the wrapper base resolves to
-  `mlwelles/modusgraph-gen/entity`, aliased as `mgentity`.
+  `mlwelles/modusGraph-gen/entity`, aliased as `mgentity`.
