@@ -37,6 +37,31 @@ func (c *{{ $E }}Client) Update(ctx context.Context, w *{{ $E }}) error {
 func (c *{{ $E }}Client) Upsert(ctx context.Context, w *{{ $E }}, predicates ...string) error {
 	return c.typed.Upsert(ctx, w.Unwrap(), predicates...)
 }
+{{- $uf := upsertField .Entity.Fields }}
+{{- if $uf }}
+
+// LoadAndDelete atomically reads the {{ $E }} whose {{ $uf.Predicate }} equals
+// key and deletes it, returning (nil, false, nil) when none matched.
+// Read-and-consume (compare sync.Map.LoadAndDelete).
+func (c *{{ $E }}Client) LoadAndDelete(ctx context.Context, key {{ $uf.GoType }}) (*{{ $E }}, bool, error) {
+	s, loaded, err := c.typed.LoadAndDelete(ctx, key, {{ printf "%q" $uf.Predicate }})
+	if err != nil || !loaded {
+		return nil, loaded, err
+	}
+	return Wrap{{ $E }}(s), true, nil
+}
+
+// LoadOrStore stores the schema struct backing w only if no {{ $E }} already
+// has the same {{ $uf.Predicate }}, returning loaded=true when one existed.
+// Insert-if-absent (compare sync.Map.LoadOrStore).
+func (c *{{ $E }}Client) LoadOrStore(ctx context.Context, w *{{ $E }}) (*{{ $E }}, bool, error) {
+	s, loaded, err := c.typed.LoadOrStore(ctx, w.Unwrap(), {{ printf "%q" $uf.Predicate }})
+	if err != nil {
+		return nil, false, err
+	}
+	return Wrap{{ $E }}(s), loaded, nil
+}
+{{- end }}
 
 // Delete removes the {{ $E }} with the given UID.
 func (c *{{ $E }}Client) Delete(ctx context.Context, uid string) error {
