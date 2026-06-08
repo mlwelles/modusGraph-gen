@@ -126,6 +126,28 @@ func (c *LocationClient) Upsert(ctx context.Context, w *Location, predicates ...
 	return c.typed.Upsert(ctx, w.Unwrap(), predicates...)
 }
 
+// LoadAndDelete atomically reads the Location whose email equals
+// key and deletes it, returning (nil, false, nil) when none matched.
+// Read-and-consume (compare sync.Map.LoadAndDelete).
+func (c *LocationClient) LoadAndDelete(ctx context.Context, key string) (*Location, bool, error) {
+	s, loaded, err := c.typed.LoadAndDelete(ctx, key, "email")
+	if err != nil || !loaded {
+		return nil, loaded, err
+	}
+	return WrapLocation(s), true, nil
+}
+
+// LoadOrStore stores the schema struct backing w only if no Location already
+// has the same email, returning loaded=true when one existed.
+// Insert-if-absent (compare sync.Map.LoadOrStore).
+func (c *LocationClient) LoadOrStore(ctx context.Context, w *Location) (*Location, bool, error) {
+	s, loaded, err := c.typed.LoadOrStore(ctx, w.Unwrap(), "email")
+	if err != nil {
+		return nil, false, err
+	}
+	return WrapLocation(s), loaded, nil
+}
+
 // Delete removes the Location with the given UID.
 func (c *LocationClient) Delete(ctx context.Context, uid string) error {
 	return c.typed.Delete(ctx, uid)

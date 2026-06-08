@@ -1647,3 +1647,29 @@ func TestGenerate_WrapperQueryByField_UUIDType(t *testing.T) {
 		}
 	}
 }
+
+func TestGenerateEmitsConsumeVerbs(t *testing.T) {
+	dir := moviesDir(t)
+	pkg, err := parser.Parse(dir)
+	if err != nil {
+		t.Fatalf("Parse: %v", err)
+	}
+	tmpDir := t.TempDir()
+	if err := Generate(pkg, flatConfig(pkg, tmpDir)); err != nil {
+		t.Fatalf("Generate: %v", err)
+	}
+
+	data, err := os.ReadFile(filepath.Join(tmpDir, "location_gen.go"))
+	if err != nil {
+		t.Fatalf("read location_gen.go: %v", err)
+	}
+	src := string(data)
+	for _, want := range []string{
+		"func (c *LocationClient) LoadAndDelete(ctx context.Context, key string) (*Location, bool, error)",
+		"func (c *LocationClient) LoadOrStore(ctx context.Context, w *Location) (*Location, bool, error)",
+	} {
+		if !strings.Contains(src, want) {
+			t.Errorf("generated location_gen.go missing:\n%s", want)
+		}
+	}
+}

@@ -92,6 +92,7 @@ func Generate(pkg *model.Package, cfg Config) error {
 		"toSnakeCase":  toSnakeCase,
 		"toCamelCase":  toCamelCase,
 		"accessorName": accessorName,
+		"upsertField":  upsertField,
 		"toLowerCamel": toLowerCamel,
 		"title":        strings.Title, //nolint:staticcheck
 		"hasPrefix":    strings.HasPrefix,
@@ -487,6 +488,18 @@ func toLowerCamel(s string) string {
 }
 
 // scalarFields returns fields that are not UID, DType, or edges.
+// upsertField returns the first field tagged dgraph:"upsert", or nil if the
+// entity has none. The template uses it to emit key-keyed methods
+// (LoadAndDelete / LoadOrStore) only for entities that have a unique key.
+func upsertField(fields []model.Field) *model.Field {
+	for i := range fields {
+		if fields[i].Upsert {
+			return &fields[i]
+		}
+	}
+	return nil
+}
+
 func scalarFields(fields []model.Field) []model.Field {
 	var result []model.Field
 	for _, f := range fields {
